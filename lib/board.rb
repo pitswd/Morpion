@@ -1,44 +1,32 @@
 require_relative 'boardcase'
 
 class Board
-  attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3, :board
+  attr_accessor :board
 
   def initialize
-      @a1 = BoardCase.new
-      @a2 = BoardCase.new
-      @a3 = BoardCase.new
-      @b1 = BoardCase.new
-      @b2 = BoardCase.new
-      @b3 = BoardCase.new
-      @c1 = BoardCase.new
-      @c2 = BoardCase.new
-      @c3 = BoardCase.new
-      @board = [@a1.value, @b1.value, @c1.value, @a2.value, @b2.value, @c2.value, @a3.value, @b3.value, @c3.value]
+  @board = [*0..8].map{|i| BoardCase.new(i).case_number}
   end
 
-  def play_turn 
-    empty_case = true
+  def show_board
+    puts "#{@board[0..2].join(" | ")}"
+    puts "--|---|--"
+    puts "#{@board[3..5].join(" | ")}"
+    puts "--|---|--"
+    puts "#{@board[6..9].join(" | ")}"
+  end
 
-    while empty_case
-    puts "Quel case veux tu jouer ?"
-    case_played = gets.chomp
+  def play_turn(symbol)
+    puts "Choisis la case à jouer :"
+    print ">"
+    case_number = gets.chomp().to_i
+    @board = @board.each_index.map {|e| e == case_number && @board[e] != "X" && @board[e] != "O" ? @board[e] = symbol : @board[e]}
+  end
 
-    case currently_played
-      when "a1"
-        if @board[0].value == " "
-          @board[0].value = 1
-        else
-          puts "case deja prise"
-        end
-      when "a2"
-        if @board[0].value == " "
-          @board[0].value = 1
-        else
-          puts "case deja prise"
-        end
-      else
-        puts "case non existante"
-      end
+  def victory?
+    if (board[0] == board[1] && board[0]  == board[2] && board[0] != "") || (board[3] == board[4] && board[3] == board[5] && board[3] != "") || (board[6] == board[7] && board[6] == board[8] && board[6] != "") || (board[0] == board[3] && board[0] == board[6] && board[0] != "") || (board[1] == board[4] && board[1] == board[7] && board[1] != "") || (board[2] == board[5] && board[2] == board[8] && board[2] != "") || (board[0] == board[4] && board[0] == board[8] && board[0] != "") || (board[2] == board[4] && board[2] == board[6] && board[2] != "")
+    return true
+    else
+    return false
     end
-   end
+  end
 end

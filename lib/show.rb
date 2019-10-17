@@ -1,4 +1,4 @@
-require_relative 'board'
+#require_relative 'board'
 
 class Show
     attr_accessor :board

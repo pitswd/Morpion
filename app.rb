@@ -1,10 +1,8 @@
-require 'pry'
+require "pry"
 
-require_relative 'lib/game'
+require_relative "lib/game"
+require_relative "lib/player"
+require_relative "lib/show"
+require_relative "lib/board"
 
-class Application
-  attr_accessor :player_1, :player_2, :game 
-
-@game = Game.new
-
-end
+Game.new.actual_game

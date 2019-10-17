@@ -1,39 +1,91 @@
 require 'pry'
 
-require_relative 'player'
-require_relative 'show'
-require_relative 'player'
-
 class Game
-    attr_accessor :current_player, :game_status, :board, :players_array
+  attr_accessor :current_player, :game_status, :board, :players_array
   
     def initialize 
       puts "_"*30
-      puts "Bienvenue dans le morpion"
+      puts "Bienvenue dans le morpion ! "
+      puts "Chui sur t'as jamais joué à un jeu aussi coolos 😎"
+      puts "C'est un morpion pour les dur.es, je vous laisse pas choisir votre symbole, déso les boloss."
       puts "_"*30
-      @player1 = Player.new 
-      @player2 = Player.new
+      puts " "
+      puts "Joueur 1, choisis ton nom. Ton symbole sera le X."
+      print ">"
+      name1 = gets.chomp
+      @player1 = Player.new(name1, "X")
+
+      puts "Joueur 2, choisis ton nom. Ton symbole sera le O."
+      print ">"
+      name2 = gets.chomp
+      @player2 = Player.new(name2, "O")
+
       @players_array = [@player1, @player2]
       @game_status = 'On going'
       @board = Board.new
-      Show.new.show_board(board)
-      @player1.show_state
-      @player2.show_state
+      @current_player = @player1
+      puts "C'est à #{@current_player.name} de commencer. Go go go !"
     end
 
 
-    def turn
-      #TO DO : méthode faisant appelle aux méthodes des autres classes (notamment à l'instance de Board). Elle affiche le plateau, demande au joueur ce qu'il joue, vérifie si un joueur a gagné, passe au joueur suivant si la partie n'est pas finie.
+    def till_victory
+        while @board.victory? == false
+            self.turn
+        end
     end
-  
+
+    def switch_players 
+
+        if @current_player == @player1
+            @current_player = @player2
+
+        else @current_player = @player1
+
+        end
+    end
+    def actual_game
+      loop do 
+       puts "situation actuelle :"
+       puts "_"*20
+                @board.show_board
+                puts "C'est au tour de #{@current_player.name} jouer avec le #{@current_player.symbol}"
+                    @board.play_turn(@current_player.symbol)
+    
+                if @board.victory? == true 
+    
+    
+                puts "_"*20
+                puts "Voici la situation finale :"
+                @board.show_board
+                puts "_"*20
+                puts ""
+                puts "BRAVO ! TU AS GAGNÉ ! Va chercher un cookie, tu l'as bien mérité coquin.ne ;)"
+                puts " #{current_player.name} est donc notre championg."
+                new_round
+    
+                break 
+    
+                end 
+    
+                switch_players
+            end 
+    end 
     def new_round
-      # TO DO : relance une partie en initialisant un nouveau board mais en gardant les mêmes joueurs.
-    end
-  
-    def game_end
-      # TO DO : permet l'affichage de fin de partie quand un vainqueur est détecté ou si il y a match nul
-    end    
-  
-  end
+        puts "_"*20
+        puts "_"*20
+        puts "Cho pour la revanche ? tape 1. T'en as marre ? tape 2 (je t'en voudrais pas)"
+        print ">"
+        choice = gets.chomp().to_i
+        if choice == 1
+            puts "ET NON ! Je t'ai bien eu. J'ai pas réussi à faire marcher cette boucle :'("
+            @board = Board.new
+        
+        elsif choice == 2
+             puts "Ciao les moches"
 
-  
+        else puts "Si t'as ce message d'erreur, tu sais apparemment pas compter jusqu'à 2..."
+                new_round
+       end
+   end
+
+  end
