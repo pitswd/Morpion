@@ -1,4 +1,4 @@
-#JEU DU MORPION
+JEU DU MORPION
 
 Un jeu SUPER FUN à créer (si si, vraiment, l'éclate).
 Créé par **Paul Poitrenaud** (**@polo** sur Slack). Travail fait en pair-programming avec **Thomas Delage** et **Zelig Bouillot** (merci à vous, je vous aime).

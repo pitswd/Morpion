@@ -1,5 +1,6 @@
 #require_relative 'board'
-
+#Ce fichier ne sert pas. Il devait contenir la méthode `show_board` mais impossible de 
+#la faire marcher d'ici donc je l'ai remise dans `board.rb`
 class Show
     attr_accessor :board
 

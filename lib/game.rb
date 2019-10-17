@@ -1,9 +1,11 @@
+#ce fichier contient tout le déroulement du jeu 
+
 require 'pry'
 
 class Game
   attr_accessor :current_player, :game_status, :board, :players_array
   
-    def initialize 
+    def initialize #Méthode pour poser les instances et démarrer le jeu
       puts "_"*30
       puts "Bienvenue dans le morpion ! "
       puts "Chui sur t'as jamais joué à un jeu aussi coolos 😎"
@@ -28,13 +30,13 @@ class Game
     end
 
 
-    def till_victory
+    def till_victory #détermine la fin de la partie via la méthode victory? présente dans `board.rb`
         while @board.victory? == false
             self.turn
         end
     end
 
-    def switch_players 
+    def switch_players #permet de changer de joueurs à chaque tour
 
         if @current_player == @player1
             @current_player = @player2
@@ -43,7 +45,7 @@ class Game
 
         end
     end
-    def actual_game
+    def actual_game #déroulement du jeu jusqu'à une victoire ou un nul
       loop do 
        puts "situation actuelle :"
        puts "_"*20
@@ -70,7 +72,7 @@ class Game
                 switch_players
             end 
     end 
-    def new_round
+    def new_round #permet, normalement, de relancer une partie quand celle d'avant est finie. Ne marche pas comme je voudrais...
         puts "_"*20
         puts "_"*20
         puts "Cho pour la revanche ? tape 1. T'en as marre ? tape 2 (je t'en voudrais pas)"

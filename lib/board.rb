@@ -2,7 +2,7 @@ require_relative 'boardcase'
 
 class Board
   attr_accessor :board
-
+#ce fichier dessine la grille de jeu et défini chaque tour, ainsi que les conditions de victoire
   def initialize
   @board = [*0..8].map{|i| BoardCase.new(i).case_number}
   end
