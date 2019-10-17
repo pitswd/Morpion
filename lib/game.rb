@@ -1,15 +1,26 @@
 require 'pry'
 
 require_relative 'player'
+require_relative 'show'
+require_relative 'player'
 
 class Game
     attr_accessor :current_player, :game_status, :board, :players_array
   
-    def initialize
-      #TO DO : créé 2 joueurs, créé un board, met le status à "on going", défini un current_player
-      @board = Board
-
+    def initialize 
+      puts "_"*30
+      puts "Bienvenue dans le morpion"
+      puts "_"*30
+      @player1 = Player.new 
+      @player2 = Player.new
+      @players_array = [@player1, @player2]
+      @game_status = 'On going'
+      @board = Board.new
+      Show.new.show_board(board)
+      @player1.show_state
+      @player2.show_state
     end
+
 
     def turn
       #TO DO : méthode faisant appelle aux méthodes des autres classes (notamment à l'instance de Board). Elle affiche le plateau, demande au joueur ce qu'il joue, vérifie si un joueur a gagné, passe au joueur suivant si la partie n'est pas finie.
@@ -24,3 +35,5 @@ class Game
     end    
   
   end
+
+  
